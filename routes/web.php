@@ -2,17 +2,26 @@
 
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
 
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/upload', function(){
+    return view('upload-file');
+});
+
+Route::post('/upload', function(){
+    if (request()->has('mycsv')) {
+        // dd(request()->has('mycsv'));
+        $csv = array_map('getcsv', file(request()->mycsv));
+        dd($csv);
+        // return $csv;
+    } else{
+        return "Upload Your File.";
+    }
+    // if (request()->has('mycsv')) {
+    //     return "yes";
+    // }
+});
+
